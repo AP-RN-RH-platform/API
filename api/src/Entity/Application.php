@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +69,18 @@ class Application
      * @ORM\Column(type="string", length=255)
      */
     private $CV;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="applications")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $applicant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="applications")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $offer;
 
     public function getId(): ?int
     {
@@ -189,6 +203,30 @@ class Application
     public function setCV(string $CV): self
     {
         $this->CV = $CV;
+
+        return $this;
+    }
+
+    public function getApplicant(): ?User
+    {
+        return $this->applicant;
+    }
+
+    public function setApplicant(?User $applicant): self
+    {
+        $this->applicant = $applicant;
+
+        return $this;
+    }
+
+    public function getOffer(): ?Offer
+    {
+        return $this->offer;
+    }
+
+    public function setOffer(?Offer $offer): self
+    {
+        $this->offer = $offer;
 
         return $this;
     }

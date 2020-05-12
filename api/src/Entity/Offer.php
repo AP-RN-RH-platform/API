@@ -3,10 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
  */
 class Offer
@@ -19,34 +25,56 @@ class Offer
     private $id;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="text")
      */
     private $companyDescription;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="text")
      */
     private $offerDescription;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="datetime")
      */
     private $beginAt;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $contractType;
 
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
      */
     private $place;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="offers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="offer")
+     */
+    private $applications;
+
+    public function __construct()
+    {
+        $this->applications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +149,49 @@ class Offer
     public function setPlace(string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Application[]
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): self
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications[] = $application;
+            $application->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): self
+    {
+        if ($this->applications->contains($application)) {
+            $this->applications->removeElement($application);
+            // set the owning side to null (unless already changed)
+            if ($application->getOffer() === $this) {
+                $application->setOffer(null);
+            }
+        }
 
         return $this;
     }
