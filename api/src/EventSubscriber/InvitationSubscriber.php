@@ -28,8 +28,10 @@ final class InvitationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['sendMail', EventPriorities::POST_WRITE],
-            KernelEvents::VIEW => ['generateToken', EventPriorities::PRE_WRITE],
+            KernelEvents::VIEW => [
+                ['sendMail', EventPriorities::POST_WRITE],
+                ['generateToken', EventPriorities::PRE_WRITE]
+            ],
         ];
     }
 
@@ -45,8 +47,8 @@ final class InvitationSubscriber implements EventSubscriberInterface
             ->from($_ENV['APP_EMAIL_SENDER'])
             ->to($invitation->getEmail())
             ->subject('Une invitation à candidaté vous à été envoyé!')
-            ->text(sprintf('Rendez-vous sur RH APP et retrouvez l\'offre #%d pour y postuler.', $invitation->getToken()))
-            ->html(sprintf('Rendez-vous sur RH APP et retrouvez l\'offre #%d pour y postuler.', $invitation->getToken()));
+            ->text(sprintf('Rendez-vous sur RH APP et retrouvez l\'offre '.$invitation->getToken().' pour y postuler.'))
+            ->html(sprintf('Rendez-vous sur RH APP et retrouvez l\'offre <b>'.$invitation->getToken().'</b> pour y postuler.'));
 
         $this->mailer->send($email);
     }
@@ -59,7 +61,7 @@ final class InvitationSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $token = random_bytes(25);
+        $token = random_bytes(10);
         $invitation->setToken(bin2hex($token));
     }
 }
