@@ -34,35 +34,35 @@ class User implements UserInterface
 
     /**
      * @var string firstname
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_write", "user_read"})
      */
     private $firstname;
 
     /**
      * @var string lastname
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_write", "user_read"})
      */
     private $lastname;
 
     /**
      * @var string genre
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_write", "user_read"})
      */
     private $genre;
 
     /**
      * @var string photo url
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_write", "user_read"})
      */
     private $photo;
 
     /**
      * @var string address
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_write", "user_read"})
      */
     private $address;
@@ -70,7 +70,7 @@ class User implements UserInterface
 
     /**
      * @var string city
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_write", "user_read"})
      */
     private $city;
