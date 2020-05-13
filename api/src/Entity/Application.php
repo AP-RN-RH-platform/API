@@ -71,6 +71,11 @@ class Application
     private $CV;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
