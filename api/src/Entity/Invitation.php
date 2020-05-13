@@ -53,7 +53,7 @@ class Invitation
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="invitations")
-     * @Groups({"invitation_read","invitation_write"})
+     * @Groups({"invitation_read","invitation_write","offer:read"})
      */
     private $offer;
 
