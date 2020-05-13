@@ -67,12 +67,6 @@ class User implements UserInterface
      */
     private $address;
 
-    /**
-     * @var string zip_code
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"user_write", "user_read"})
-     */
-    private $zip_code;
 
     /**
      * @var string city
@@ -190,18 +184,6 @@ class User implements UserInterface
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
-        return $this;
-    }
-
-    public function getZipCode(): ?string
-    {
-        return $this->zip_code;
-    }
-
-    public function setZipCode(string $zip_code): self
-    {
-        $this->zip_code = $zip_code;
 
         return $this;
     }
@@ -340,5 +322,4 @@ class User implements UserInterface
 
         return $this;
     }
-
 }
