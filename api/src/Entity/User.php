@@ -11,8 +11,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"user_read"}},
+ *     denormalizationContext={"groups"={"user_write"}},
+ *     itemOperations={
+ *         "get"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "put"={"security"="is_granted('ROLE_USER') and object.getOwner() == user"}
+ *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
@@ -23,24 +28,70 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_read"})
      */
     private $id;
 
     /**
-     * @Groups("write")
+     * @var string firstname
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_write", "user_read"})
+     */
+    private $firstname;
+
+    /**
+     * @var string lastname
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_write", "user_read"})
+     */
+    private $lastname;
+
+    /**
+     * @var string genre
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_write", "user_read"})
+     */
+    private $genre;
+
+    /**
+     * @var string photo url
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_write", "user_read"})
+     */
+    private $photo;
+
+    /**
+     * @var string address
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_write", "user_read"})
+     */
+    private $address;
+
+
+    /**
+     * @var string city
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_write", "user_read"})
+     */
+    private $city;
+
+    /**
+     * @var string email
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_write", "user_read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user_write", "user_read"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
-     * @Groups("write")
      * @ORM\Column(type="string")
+     * @Groups("user_write")
      */
     private $password;
 
@@ -66,6 +117,54 @@ class User implements UserInterface
         return $this->id;
     }
 
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getGenre(): ?bool
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(bool $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -74,6 +173,30 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
@@ -200,5 +323,4 @@ class User implements UserInterface
 
         return $this;
     }
-
 }

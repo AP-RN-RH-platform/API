@@ -77,6 +77,17 @@ class Application
 
     /**
      * @Groups({"application:read", "application:write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $zip_code;
+
+    /**
+     * @Groups({"application:read", "application:write"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $motives;
@@ -92,6 +103,12 @@ class Application
      * @ORM\Column(type="string", length=255)
      */
     private $CV;
+
+    /**
+     * @Groups({"application:read"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="applications")
@@ -195,6 +212,30 @@ class Application
         return $this;
     }
 
+    public function getZipCode(): ?string
+    {
+        return $this->zip_code;
+    }
+
+    public function setZipCode(string $zip_code): self
+    {
+        $this->zip_code = $zip_code;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
     public function getMotives(): ?string
     {
         return $this->motives;
@@ -231,12 +272,25 @@ class Application
         return $this;
     }
 
-    public function getcreatedBy(): ?User
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
     {
         return $this->createdBy;
     }
 
-    public function setcreatedBy(?User $createdBy): self
+    public function setCreatedBy(?User $createdBy): self
     {
         $this->createdBy = $createdBy;
 
