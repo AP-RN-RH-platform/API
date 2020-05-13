@@ -75,11 +75,7 @@ class Application
      */
     private $address;
 
-    /**
-     * @Groups({"application:read", "application:write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $zip_code;
+
 
     /**
      * @Groups({"application:read", "application:write"})
@@ -88,6 +84,7 @@ class Application
     private $city;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="text")
      */
     private $motives;
@@ -122,6 +119,13 @@ class Application
      * @ORM\JoinColumn(nullable=false)
      */
     private $offer;
+
+
+    public function __construct()
+    {
+        $this->status = "Créé";
+    }
+
 
     public function getId(): ?int
     {
@@ -212,17 +216,6 @@ class Application
         return $this;
     }
 
-    public function getZipCode(): ?string
-    {
-        return $this->zip_code;
-    }
-
-    public function setZipCode(string $zip_code): self
-    {
-        $this->zip_code = $zip_code;
-
-        return $this;
-    }
 
     public function getCity(): ?string
     {
