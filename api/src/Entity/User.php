@@ -28,6 +28,48 @@ class User implements UserInterface
 
     /**
      * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $firstname;
+
+    /**
+     * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $lastname;
+
+    /**
+     * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $genre;
+
+    /**
+     * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $photo;
+
+    /**
+     * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $address;
+
+    /**
+     * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $zip_code;
+
+    /**
+     * @Groups("write")
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $city;
+
+    /**
+     * @Groups("write")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
