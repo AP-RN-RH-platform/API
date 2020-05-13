@@ -101,7 +101,7 @@ class User implements UserInterface
     private $offers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="applicant")
+     * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="createdBy")
      */
     private $applications;
 
