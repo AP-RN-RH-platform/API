@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use App\Controller\SendInvitation;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -31,7 +32,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *                  }
  *              }
  *         }
- *     }
+ *     },
+ *     subresourceOperations={
+ *          "api_invitation_offer_get_subresource"={
+ *              "method"="POST",
+ *              "path"="/invitation/{id}/offer"
+ *          },
+ *     },
  * )
  * @ORM\Entity(repositoryClass="App\Repository\InvitationRepository")
  */
@@ -54,6 +61,7 @@ class Invitation
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="invitations")
      * @Groups({"invitation_read","invitation_write","offer:read"})
+     * @ApiSubresource
      */
     private $offer;
 
