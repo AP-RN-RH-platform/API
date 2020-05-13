@@ -6,9 +6,22 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"application:read"}},
+ *     denormalizationContext={"groups"={"application:write"}},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_APPLICANT')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "put"={"security"="is_granted('ROLE_APPLICANT') and object.createdBy == user"},
+ *         "delete"={"security"="is_granted('ROLE_APPLICANT') and object.createdBy == user"},
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\ApplicationRepository")
  */
 class Application
@@ -21,51 +34,61 @@ class Application
     private $id;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="boolean")
      */
     private $sex;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $photo;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="integer")
      */
     private $age;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $address;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="text")
      */
     private $motives;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="integer")
      */
     private $expectedSalary;
 
     /**
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $CV;
@@ -74,9 +97,10 @@ class Application
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $applicant;
+    private $createdBy;
 
     /**
+     * @Groups({"application:write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -207,14 +231,14 @@ class Application
         return $this;
     }
 
-    public function getApplicant(): ?User
+    public function getcreatedBy(): ?User
     {
-        return $this->applicant;
+        return $this->createdBy;
     }
 
-    public function setApplicant(?User $applicant): self
+    public function setcreatedBy(?User $createdBy): self
     {
-        $this->applicant = $applicant;
+        $this->createdBy = $createdBy;
 
         return $this;
     }

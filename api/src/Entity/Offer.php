@@ -10,8 +10,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"offer:read"}},
+ *     denormalizationContext={"groups"={"offer:write"}},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_RECRUITER')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "put"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
+ *         "delete"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
+ *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
  */
@@ -25,37 +34,37 @@ class Offer
     private $id;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"offer:read", "offer:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"offer:read", "offer:write"})
      * @ORM\Column(type="text")
      */
     private $companyDescription;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"offer:read", "offer:write"})
      * @ORM\Column(type="text")
      */
     private $offerDescription;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"offer:read", "offer:write"})
      * @ORM\Column(type="datetime")
      */
     private $beginAt;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"offer:read", "offer:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $contractType;
 
     /**
-     * @Groups({"read", "write"})
+     * @Groups({"offer:read", "offer:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $place;
@@ -67,6 +76,7 @@ class Offer
     private $createdBy;
 
     /**
+     * @Groups({"application:read"})
      * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="offer")
      */
     private $applications;
@@ -187,7 +197,7 @@ class Offer
     {
         if ($this->applications->contains($application)) {
             $this->applications->removeElement($application);
-            // set the owning side to null (unless already changed)
+            // set the owning side to null (unless aloffer:ready changed)
             if ($application->getOffer() === $this) {
                 $application->setOffer(null);
             }
