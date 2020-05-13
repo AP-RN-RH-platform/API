@@ -11,8 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"user_read"}},
+ *     denormalizationContext={"groups"={"user_write"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
@@ -23,54 +23,63 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_read"})
      */
     private $id;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string firstname
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $firstname;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string lastname
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $lastname;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string genre
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $genre;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string photo url
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $photo;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string address
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $address;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string zip_code
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $zip_code;
 
     /**
-     * @Groups("write")
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @var string city
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user_write", "user_read"})
      */
     private $city;
 
     /**
-     * @Groups("write")
+     * @var string email
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_write", "user_read"})
      */
     private $email;
 
@@ -81,8 +90,8 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @Groups("write")
      * @ORM\Column(type="string")
+     * @Groups("user_write")
      */
     private $password;
 
