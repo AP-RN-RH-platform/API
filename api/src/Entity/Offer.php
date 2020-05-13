@@ -10,8 +10,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+<<<<<<< HEAD
  *     normalizationContext={"groups"={"offer_read"}},
  *     denormalizationContext={"groups"={"offer_write"}}
+=======
+ *     normalizationContext={"groups"={"offer:read"}},
+ *     denormalizationContext={"groups"={"offer:write"}},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_RECRUITER')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "put"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
+ *         "delete"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
+ *     }
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
  * )
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
  */
@@ -25,36 +39,60 @@ class Offer
     private $id;
 
     /**
+<<<<<<< HEAD
+=======
+     * @Groups({"offer:read", "offer:write"})
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
      * @ORM\Column(type="string", length=255)
      * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $name;
 
     /**
+<<<<<<< HEAD
+=======
+     * @Groups({"offer:read", "offer:write"})
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
      * @ORM\Column(type="text")
      * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $companyDescription;
 
     /**
+<<<<<<< HEAD
+=======
+     * @Groups({"offer:read", "offer:write"})
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
      * @ORM\Column(type="text")
      * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $offerDescription;
 
     /**
+<<<<<<< HEAD
+=======
+     * @Groups({"offer:read", "offer:write"})
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
      * @ORM\Column(type="datetime")
      * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $beginAt;
 
     /**
+<<<<<<< HEAD
+=======
+     * @Groups({"offer:read", "offer:write"})
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
      * @ORM\Column(type="string", length=255)
      * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $contractType;
 
     /**
+<<<<<<< HEAD
+=======
+     * @Groups({"offer:read", "offer:write"})
+>>>>>>> bbf697ef562659dcba6e1ad6e936d008dbdf9afe
      * @ORM\Column(type="string", length=255)
      * @Groups({"offer_write", "offer_read", "user_read"})
      */
@@ -67,6 +105,7 @@ class Offer
     private $createdBy;
 
     /**
+     * @Groups({"application:read"})
      * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="offer")
      */
     private $applications;
@@ -193,7 +232,7 @@ class Offer
     {
         if ($this->applications->contains($application)) {
             $this->applications->removeElement($application);
-            // set the owning side to null (unless already changed)
+            // set the owning side to null (unless aloffer:ready changed)
             if ($application->getOffer() === $this) {
                 $application->setOffer(null);
             }
