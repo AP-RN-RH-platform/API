@@ -13,10 +13,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"user_read"}},
  *     denormalizationContext={"groups"={"user_write"}},
+ *     collectionOperations={
+ *         "get"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "post"
+ *     },
  *     itemOperations={
  *         "get"={"security"="is_granted('ROLE_ADMIN')"},
  *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
- *         "put"={"security"="is_granted('ROLE_USER') and object.getOwner() == user"}
+ *         "put"={"security"="is_granted('ROLE_USER') and object.getId() == user.getId()"},
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
