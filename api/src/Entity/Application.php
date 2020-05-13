@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -55,12 +54,6 @@ class Application
      * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
-    private $photo;
-
-    /**
-     * @Groups({"application:read", "application:write"})
-     * @ORM\Column(type="string", length=255)
-     */
     private $email;
 
     /**
@@ -96,12 +89,6 @@ class Application
     private $expectedSalary;
 
     /**
-     * @Groups({"application:read", "application:write"})
-     * @ORM\Column(type="string", length=255)
-     */
-    private $CV;
-
-    /**
      * @Groups({"application:read"})
      * @ORM\Column(type="string", length=255)
      */
@@ -119,6 +106,26 @@ class Application
      * @ORM\JoinColumn(nullable=false)
      */
     private $offer;
+
+    /**
+     * @var MediaObject|null
+     *
+     * @Groups({"application:read", "application:write"})
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     * @ApiProperty(iri="http://schema.org/image")
+     */
+    public $CV;
+
+    /**
+     * @var MediaObject|null
+     *
+     * @Groups({"application:read", "application:write"})
+     * @ORM\ManyToOne(targetEntity=MediaObject::class)
+     * @ORM\JoinColumn(nullable=true)
+     * @ApiProperty(iri="http://schema.org/image")
+     */
+    public $photo;
 
 
     public function __construct()
@@ -168,17 +175,6 @@ class Application
         return $this;
     }
 
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(string $photo): self
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
@@ -249,18 +245,6 @@ class Application
     public function setExpectedSalary(int $expectedSalary): self
     {
         $this->expectedSalary = $expectedSalary;
-
-        return $this;
-    }
-
-    public function getCV(): ?string
-    {
-        return $this->CV;
-    }
-
-    public function setCV(string $CV): self
-    {
-        $this->CV = $CV;
 
         return $this;
     }

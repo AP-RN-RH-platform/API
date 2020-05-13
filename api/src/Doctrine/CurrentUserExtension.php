@@ -32,7 +32,7 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
         if(
-            (Application::class == $resourceClass || Offer::class == $resourceClass) ||
+            (Application::class == $resourceClass || Offer::class == $resourceClass) &&
             $this->security->getUser()
         ) {
             $user = $this->security->getUser();
