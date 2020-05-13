@@ -15,10 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "get"={"security"="is_granted('ROLE_ADMIN')"},
  *         "put"={"security"="is_granted('ROLE_ADMIN')"},
  *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
- *         "post_publication"={
+ *         "send_invitation"={
  *             "method"="POST",
  *             "path"="/send_invitation/{token}",
- *             "controller"="SendInvitation::class",
+ *             "controller"=SendInvitation::class,
  *             "defaults"={"_api_receive"=false},
  *             "openapi_context"= {
  *                  "parameters"= {

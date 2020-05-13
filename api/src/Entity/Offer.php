@@ -10,8 +10,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"read"}},
- *     denormalizationContext={"groups"={"write"}}
+ *     normalizationContext={"groups"={"offer_read"}},
+ *     denormalizationContext={"groups"={"offer_write"}}
  * )
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
  */
@@ -25,38 +25,38 @@ class Offer
     private $id;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $name;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="text")
+     * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $companyDescription;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="text")
+     * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $offerDescription;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="datetime")
+     * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $beginAt;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $contractType;
 
     /**
-     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"offer_write", "offer_read", "user_read"})
      */
     private $place;
 

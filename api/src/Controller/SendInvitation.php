@@ -2,16 +2,46 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Invitation;
+use App\Entity\Offer;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class SendInvitation
+class SendInvitation extends AbstractController
 {
-    public function __invoke(Request $data)
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+    public function __invoke(Request $data): Offer
     {
         $token = $data->get('token');
 
-        return $token;
+        //find invitation
+        $invitation = $this->getDoctrine()
+            ->getRepository(Invitation::class)
+            ->findOneBy(['token' => $token]);
+
+        if (!$invitation) {
+            throw $this->createNotFoundException(
+                'No invitation found for this token '.$token
+            );
+        }
+
+        //check if is for current user
+        $user = $this->security->getUser();
+        if($user->getEmail() != $invitation->getEmail()){
+            throw $this->createNotFoundException(
+                'This token is not for the current User'
+            );
+        }
+
+        //return Offer
+        return $invitation->getOffer();
     }
 }
