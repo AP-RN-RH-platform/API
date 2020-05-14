@@ -59,6 +59,7 @@ class MediaObject
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      * @ORM\Id
+     * @Groups({"media_object_read"})
      */
     protected $id;
 
