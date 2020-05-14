@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "put"={"security"="is_granted('ROLE_ADMIN')"},
  *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
  *         "send_invitation"={
- *             "method"="POST",
+ *             "method"="GET",
  *             "path"="/send_invitation/{token}",
  *             "controller"=SendInvitation::class,
  *             "defaults"={"_api_receive"=false},
