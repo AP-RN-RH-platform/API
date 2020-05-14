@@ -30,6 +30,7 @@ class Offer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"offer:read", "invitation_read"})
      */
     private $id;
 
