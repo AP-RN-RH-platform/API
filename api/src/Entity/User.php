@@ -8,19 +8,29 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\CurrentUser;
 
 /**
  * @ApiResource(
  *     normalizationContext={"groups"={"user_read"}},
  *     denormalizationContext={"groups"={"user_write"}},
- *     collectionOperations={
- *         "get"={"security"="is_granted('ROLE_ADMIN')"},
- *         "post"
- *     },
  *     itemOperations={
  *         "get"={"security"="is_granted('ROLE_ADMIN')"},
  *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
  *         "put"={"security"="is_granted('ROLE_USER') and object.getId() == user.getId()"},
+ *         "current_user"={
+ *             "method"="GET",
+ *             "path"="/current_user",
+ *             "controller"=CurrentUser::class,
+ *             "defaults"={"_api_receive"=false},
+ *             "openapi_context"= {
+ *                  "parameters"= {}
+ *              }
+ *          }
+ *     },
+ *     collectionOperations={
+ *         "get"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "post"
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
