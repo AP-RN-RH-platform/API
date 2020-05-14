@@ -2,7 +2,7 @@
 /helm/api/charts
 /helm/api/Chart.lock
 
-public/
+/public/media/
 
 ###> symfony/framework-bundle ###
 /.env.local

@@ -15,8 +15,8 @@ use App\Controller\CurrentUser;
  *     normalizationContext={"groups"={"user_read"}},
  *     denormalizationContext={"groups"={"user_write"}},
  *     itemOperations={
- *         "get"={"security"="is_granted('ROLE_ADMIN')"},
- *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "get"={"security"="is_granted('ROLE_RECRUITER')"},
+ *         "delete"={"security"="is_granted('ROLE_RECRUITER')"},
  *         "put"={"security"="is_granted('ROLE_USER') and object.getId() == user.getId()"},
  *         "current_user"={
  *             "method"="GET",
@@ -29,7 +29,7 @@ use App\Controller\CurrentUser;
  *          }
  *     },
  *     collectionOperations={
- *         "get"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "get"={"security"="is_granted('ROLE_RECRUITER')"},
  *         "post"
  *     }
  * )

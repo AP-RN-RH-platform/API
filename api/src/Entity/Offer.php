@@ -20,13 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "get",
  *         "put"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
  *         "delete"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
- *     },
- *     subresourceOperations={
- *          "api_invitation_offer_get_subresource"={
- *              "method"="POST",
- *              "normalization_context"={"groups"={"offer:read"}}
- *          },
- *     },
+ *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
  */
