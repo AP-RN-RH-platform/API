@@ -12,10 +12,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"invitation_read"}},
  *     denormalizationContext={"groups"={"invitation_write"}},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_RECRUITER')"}
+ *     },
  *     itemOperations={
- *         "get"={"security"="is_granted('ROLE_ADMIN')"},
- *         "put"={"security"="is_granted('ROLE_ADMIN')"},
- *         "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "get"={"security"="is_granted('ROLE_RECRUITER')"},
+ *         "put"={"security"="is_granted('ROLE_RECRUITER')"},
+ *         "delete"={"security"="is_granted('ROLE_RECRUITER')"},
  *         "send_invitation"={
  *             "method"="GET",
  *             "path"="/send_invitation/{token}",

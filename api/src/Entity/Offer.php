@@ -20,7 +20,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "get",
  *         "put"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
  *         "delete"={"security"="is_granted('ROLE_RECRUITER') and object.createdBy == user"},
- *     }
+ *     },
+ *     subresourceOperations={
+ *          "api_application_offer_get_subresource"= {
+ *              "security"="has_role('ROLE_RECRUITER')"
+ *          }
+ *      }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
  */

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ApiResource(
@@ -19,9 +20,16 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
  *     },
  *     itemOperations={
  *         "get",
- *         "put"={"security"="is_granted('ROLE_APPLICANT') and object.createdBy == user"},
+ *         "put"={"security"="is_granted('ROLE_RECRUITER') or (is_granted('ROLE_APPLICANT') and object.createdBy == user)"},
+ *         "patch"={"security"="is_granted('ROLE_RECRUITER') or (is_granted('ROLE_APPLICANT') and object.createdBy == user)"},
  *         "delete"={"security"="is_granted('ROLE_APPLICANT') and object.createdBy == user"},
- *     }
+ *     },
+ *     subresourceOperations={
+ *          "api_application_offer_get_subresource"={
+ *              "method"="GET",
+ *              "path"="/application/{id}/offer"
+ *          },
+ *     },
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ApplicationRepository")
  * @ApiFilter(OrderFilter::class, properties={"id", "status"}, arguments={"orderParameterName"="order"})
@@ -32,6 +40,7 @@ class Application
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"application:read"})
      */
     private $id;
 
@@ -92,7 +101,7 @@ class Application
     private $expectedSalary;
 
     /**
-     * @Groups({"application:read"})
+     * @Groups({"application:read", "application:write"})
      * @ORM\Column(type="string", length=255)
      */
     private $status;
@@ -107,6 +116,7 @@ class Application
      * @Groups({"application:write"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
+     * @ApiSubresource(maxDepth=1)
      */
     private $offer;
 
