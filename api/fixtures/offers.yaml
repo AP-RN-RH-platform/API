@@ -1,0 +1,11 @@
+App\Entity\Offer:
+    offer_{1..50}:
+        name: <firstName()>
+        companyDescription: <text()>
+        offerDescription: <text()>
+        beginAt: <dateTime('now', null)>
+        contractType: <randomElement(['CDI','CDD'])>
+        place: <address()>
+        createdBy: '@recruiter_*'
+        
+ 
