@@ -55,7 +55,7 @@ trait RequestTrait
      */
     public function iHaveThePayload(PyStringNode $requestPayload)
     {
-        $this->requestPayload = $requestPayload;
+        $this->requestPayload = json_decode($requestPayload->getRaw());
     }
 
     /**
@@ -85,7 +85,7 @@ trait RequestTrait
                 $resource,
                 [
                     'headers' => $this->requestHeaders,
-                    'body'    => $this->requestPayload,
+                    'body'    => json_encode($this->requestPayload),
                 ]
             );
         } catch (\Exception $e) {
