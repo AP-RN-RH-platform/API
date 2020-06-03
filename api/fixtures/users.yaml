@@ -1,20 +1,20 @@
 parameters:
     genders: ['Homme', 'Femme']
 App\Entity\User:
-    recruiter_{1..5}:
+    recruiter_1:
         firstname: <firstName()>
         lastname: <lastName()>
         genre: <randomElement($genders)>
-        email (unique): <email()>
+        email (unique): recruiter@gmail.com
         address: <address()>
         city: <city()>
         password: <encodePassword('toto')>
         roles: ["ROLE_RECRUITER"]
-    applicant_{1..5}:
+    applicant_1:
         firstname: <firstName()>
         lastname: <lastName()>
         genre: <randomElement($genders)>
-        email (unique): <email()>
+        email (unique): applicant@gmail.com
         address: <address()>
         city: <city()>
         password: <encodePassword('toto')>
