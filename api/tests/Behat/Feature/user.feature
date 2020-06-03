@@ -4,7 +4,7 @@ Feature: _User_
       | parameters     |
       | users          |
 
-  Scenario: test post user
+  Scenario: test create user
     Given I have the payload
     """
     {
