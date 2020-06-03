@@ -8,7 +8,7 @@ App\Entity\User:
         email (unique): <email()>
         address: <address()>
         city: <city()>
-        password: <password()>
+        password: <encodePassword('toto')>
         roles: ["ROLE_RECRUITER"]
     applicant_{1..5}:
         firstname: <firstName()>
@@ -17,5 +17,5 @@ App\Entity\User:
         email (unique): <email()>
         address: <address()>
         city: <city()>
-        password: <password()>
+        password: <encodePassword('toto')>
         roles: ["ROLE_APPLICANT"]

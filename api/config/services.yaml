@@ -34,3 +34,5 @@ services:
         decorates: 'api_platform.serializer.context_builder'
         arguments: [ '@App\Serializer\OfferContextBuilder.inner' ]
         autoconfigure: false
+        
+    App\Faker\Provider\EncodedPasswordProvider:
