@@ -1,11 +1,11 @@
 App\Entity\Offer:
-    offer_{1..50}:
-        name: <firstName()>
-        companyDescription: <text()>
-        offerDescription: <text()>
+    offer_{1}:
+        name: Développeur WEB
+        companyDescription: BNP PARIBAS
+        offerDescription: Poste de développeur
         beginAt: <dateTime('now', null)>
         contractType: <randomElement(['CDI','CDD'])>
         place: <address()>
-        createdBy: '@recruiter_*'
+        createdBy: '@recruiter_1'
         
  
