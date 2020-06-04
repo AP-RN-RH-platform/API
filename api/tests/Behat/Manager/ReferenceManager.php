@@ -26,21 +26,6 @@ class ReferenceManager
         unset(self::$references[$key]);
     }
 
-    public function getKeys()
-    {
-        return array_keys(self::$references);
-    }
-
-    public function getValues()
-    {
-        return array_values(self::$references);
-    }
-
-    public function getReferences()
-    {
-        return self::$references;
-    }
-
 
     public static function get(string &$string): string
     {

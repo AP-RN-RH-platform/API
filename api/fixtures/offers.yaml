@@ -1,5 +1,5 @@
 App\Entity\Offer:
-    offer_{1}:
+    offer_1:
         name: Développeur WEB
         companyDescription: BNP PARIBAS
         offerDescription: Poste de développeur

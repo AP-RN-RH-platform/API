@@ -1,5 +1,5 @@
 App\Entity\application:
-    application_{1}:
+    application_1:
         firstname: <firstname()>
         lastname: <lastname()>
         sex: <randomElement([true , false])>
@@ -10,5 +10,5 @@ App\Entity\application:
         motives: <text()>
         expectedSalary: <numberBetween(1000,9000)>
         status: <randomElement(['Waiting','Approved'])>
-        createdBy: '@applicant_*'
+        createdBy: '@applicant_1'
         offer: '@offer_*'

@@ -19,3 +19,12 @@ App\Entity\User:
         city: <city()>
         password: <encodePassword('toto')>
         roles: ["ROLE_APPLICANT"]
+    applicant_2:
+        firstname: <firstName()>
+        lastname: <lastName()>
+        genre: <randomElement($genders)>
+        email (unique): test@test.com
+        address: <address()>
+        city: <city()>
+        password: <encodePassword('toto')>
+        roles: ["ROLE_APPLICANT"]
