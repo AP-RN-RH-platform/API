@@ -1,0 +1,3 @@
+App\Entity\MediaObject:
+    mediaobject_1:
+        filePath: "http://schema.org/image"
