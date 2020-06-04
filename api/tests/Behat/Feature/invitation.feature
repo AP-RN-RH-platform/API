@@ -54,4 +54,4 @@ Feature: _Invitation_
     Given I authenticate with user "test@test.com" and password "toto"
     Given I request "GET /send_invitation/{{invitation_1.token}}"
     Then the response status code should be 200
-    Then print last error
+    Then print last response
