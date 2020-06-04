@@ -30,20 +30,16 @@ class ApiFeatureContext implements Context
     use ScopeTrait;
     use OutputTrait;
 
-    /**
-     * @var AuthManager
-     */
-    private AuthManager $authManager;
+
 
     /**
      * Initializes context.
      */
-    public function __construct(KernelInterface $kernel, FixtureManager $fixtureManager, OutputManager $outputManager, AuthManager $authManager)
+    public function __construct(KernelInterface $kernel, FixtureManager $fixtureManager, OutputManager $outputManager)
     {
         $this->client = $kernel->getContainer()->get('test.api_platform.client');
         $this->fixtureManager = $fixtureManager;
         $this->outputManager = $outputManager;
-        $this->authManager = $authManager;
     }
 
     /**
