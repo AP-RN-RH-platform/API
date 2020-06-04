@@ -4,7 +4,7 @@ Feature: _User_
       | parameters     |
       | users          |
 
-  Scenario: test post user
+  Scenario: POST USER
     Given I have the payload
     """
     {
@@ -25,7 +25,26 @@ Feature: _User_
     When the response status code should be 201
     Then print last response
 
-  Scenario: test login 200
+  Scenario: GET USERS
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+    Given I request "GET /users"
+    When the response status code should be 200
+    Then print last response
+
+  Scenario: GET CURRENT USER
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+    Given I request "GET /current_user"
+    When the response status code should be 200
+    Then print last response
+
+
+#  Scenario: GET USER BY ID
+#    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+#    Given I request "GET /users/"
+#    When the response status code should be 200
+#    Then print last response
+
+  Scenario: LOGIN 200
     Given I have the payload
     """
     {
@@ -37,7 +56,7 @@ Feature: _User_
     When the response status code should be 200
     Then print last response
 
-  Scenario: test login 401
+  Scenario: LOGIN 401 Invalid credentials.
     Given I have the payload
     """
     {
