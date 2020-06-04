@@ -1,5 +1,5 @@
 App\Entity\Invitation:
-    invitation_2:
-        email: <email()>
+    invitation_1:
+        email: "test@test.com"
         offer: '@offer_*'
         token: <sha256()>
