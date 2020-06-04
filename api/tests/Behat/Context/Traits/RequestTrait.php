@@ -56,7 +56,8 @@ trait RequestTrait
      */
     public function iHaveThePayload(PyStringNode $requestPayload)
     {
-        $this->requestPayload = json_decode($requestPayload->getRaw());
+        $payload = $this->referenceManager->get($requestPayload);
+        $this->requestPayload = json_decode($payload);
     }
 
     /**
