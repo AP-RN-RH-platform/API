@@ -12,6 +12,19 @@ trait AuthTrait
      */
     public function iAuthenticateWithEmailAndPassword($email, $password)
     {
-        $this->token = $this->authManager->login($email, $password);
+        $response = $this->client->request(
+            "POST",
+            "/authentication_token",
+            [
+                "headers" => ["content-type" => "application/ld+json"],
+                'body' => json_encode(["email" => $email, "password" => $password]),
+            ]
+        );
+        $response = json_decode($response->getContent(false), true);
+        $token = $response["token"];
+        $this->token = $token;
+        if ($this->token) {
+            $this->iSetTheHeaderToBe("Authorization", "Bearer {$this->token}");
+        }
     }
 }

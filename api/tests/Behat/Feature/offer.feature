@@ -6,7 +6,7 @@ Feature: _Offer_
       | offers     |
 
   Scenario: Create new Offer 200
-    Given I authenticate with user "applicant@gmail.com" and password "toto"
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
     Given I have the payload
     """
     {
