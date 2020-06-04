@@ -3,6 +3,7 @@
 namespace App\Tests\Behat\Context\Traits;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
+use App\Tests\Behat\Manager\ReferenceManager;
 use Behat\Gherkin\Node\PyStringNode;
 use Behatch\Context\RestContext;
 use GuzzleHttp\Psr7\Request;
@@ -56,7 +57,7 @@ trait RequestTrait
      */
     public function iHaveThePayload(PyStringNode $requestPayload)
     {
-        $payload = $this->referenceManager->get($requestPayload);
+        $payload = ReferenceManager::get($requestPayload);
         $this->requestPayload = json_decode($payload);
     }
 
@@ -67,7 +68,7 @@ trait RequestTrait
     {
         $method = strtoupper($httpMethod);
 
-        $resource = $this->referenceManager->get($resource);
+        $resource = ReferenceManager::get($resource);
 
         $this->lastRequest = new Request(
             $httpMethod,

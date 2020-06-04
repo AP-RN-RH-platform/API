@@ -12,7 +12,8 @@ use App\Tests\Behat\Context\Traits\{
     OutputTrait,
     RequestTrait,
     ScopeTrait,
-    UtilsTrait
+    UtilsTrait,
+    ReferenceTrait
 };
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
@@ -29,18 +30,17 @@ class ApiFeatureContext implements Context
     use AuthTrait;
     use ScopeTrait;
     use OutputTrait;
+    use ReferenceTrait;
 
-    private ReferenceManager $referenceManager;
 
     /**
      * Initializes context.
      */
-    public function __construct(KernelInterface $kernel, FixtureManager $fixtureManager, OutputManager $outputManager, ReferenceManager $referenceManager)
+    public function __construct(KernelInterface $kernel, FixtureManager $fixtureManager, OutputManager $outputManager)
     {
         $this->client = $kernel->getContainer()->get('test.api_platform.client');
         $this->fixtureManager = $fixtureManager;
         $this->outputManager = $outputManager;
-        $this->referenceManager = $referenceManager;
     }
 
     /**

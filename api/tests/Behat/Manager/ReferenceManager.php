@@ -7,30 +7,45 @@ use Twig\Environment;
 class ReferenceManager
 {
 
-    private Environment $twig;
-    private $references;
+    private static Environment $twig;
+    private static $references;
 
     public function __construct(Environment $twig)
     {
-        $this->twig = $twig;
+        self::$twig = $twig;
     }
 
 
-    public function add($key, $value)
+    public static function add($key, $value)
     {
-        $this->references[$key] = $value;
+        self::$references[$key] = $value;
     }
 
     public function remove($key)
     {
-        unset($this->references[$key]);
+        unset(self::$references[$key]);
+    }
+
+    public function getKeys()
+    {
+        return array_keys(self::$references);
+    }
+
+    public function getValues()
+    {
+        return array_values(self::$references);
+    }
+
+    public function getReferences()
+    {
+        return self::$references;
     }
 
 
-    public function get(string &$string): string
+    public static function get(string &$string): string
     {
-        $template = $this->twig->createTemplate($string);
-        $string = $this->twig->render($template, $this->references);
+        $template = self::$twig->createTemplate($string);
+        $string = self::$twig->render($template, self::$references);
         return $string;
     }
 

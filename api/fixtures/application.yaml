@@ -1,5 +1,5 @@
 App\Entity\application:
-    application_{1..15}:
+    application_{1}:
         firstname: <firstname()>
         lastname: <lastname()>
         sex: <randomElement([true , false])>
