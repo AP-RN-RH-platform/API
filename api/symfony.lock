@@ -137,6 +137,9 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.0"
+    },
     "easyrdf/easyrdf": {
         "version": "0.9.1"
     },
@@ -145,6 +148,9 @@
     },
     "fig/link-util": {
         "version": "1.1.0"
+    },
+    "friends-of-behat/mink-browserkit-driver": {
+        "version": "v1.4.0"
     },
     "friends-of-behat/mink-extension": {
         "version": "v2.4.0"
@@ -549,6 +555,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.15.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.0"
     },
     "symfony/process": {
         "version": "v5.0.7"

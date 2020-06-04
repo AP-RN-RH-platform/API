@@ -4,6 +4,7 @@ namespace App\Tests\Behat\Context\Traits;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use Behat\Gherkin\Node\PyStringNode;
+use Behatch\Context\RestContext;
 use GuzzleHttp\Psr7\Request;
 
 trait RequestTrait
@@ -65,11 +66,14 @@ trait RequestTrait
     {
         $method = strtoupper($httpMethod);
 
-        $options = array();
 
-        if($this->authUser) {
-            $options = ['auth' => [$this->authUser, $this->authPassword]];
+
+        $options = [];
+        if($this->token) {
+            $this->iSetTheHeaderToBe("Authorization", "Bearer {$this->token}");
+//            $options["auth_bearer"] = "{$this->token}";
         }
+
 
         $this->lastRequest = new Request(
             $httpMethod,
@@ -88,6 +92,7 @@ trait RequestTrait
                     'body'    => json_encode($this->requestPayload),
                 ]
             );
+//            dump($this->lastRequest);
         } catch (\Exception $e) {
             $response = $e->getMessage();
 
