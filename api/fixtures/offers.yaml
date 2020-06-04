@@ -7,5 +7,3 @@ App\Entity\Offer:
         contractType: <randomElement(['CDI','CDD'])>
         place: <address()>
         createdBy: '@recruiter_1'
-        
- 

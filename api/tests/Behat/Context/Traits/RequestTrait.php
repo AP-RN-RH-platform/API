@@ -66,8 +66,7 @@ trait RequestTrait
     {
         $method = strtoupper($httpMethod);
 
-
-        
+        $resource = $this->referenceManager->get($resource);
 
         $this->lastRequest = new Request(
             $httpMethod,
