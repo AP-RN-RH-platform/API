@@ -4,26 +4,14 @@ namespace App\Tests\Behat\Context\Traits;
 
 trait AuthTrait
 {
-    /**
-     * The user to use with HTTP basic authentication
-     *
-     * @var string
-     */
-    protected $authUser;
 
-    /**
-     * The password to use with HTTP basic authentication
-     *
-     * @var string
-     */
-    protected $authPassword;
+    protected $token;
 
     /**
      * @Given /^I authenticate with user "([^"]*)" and password "([^"]*)"$/
      */
     public function iAuthenticateWithEmailAndPassword($email, $password)
     {
-        $this->authUser = $email;
-        $this->authPassword = $password;
+        $this->token = $this->authManager->login($email, $password);
     }
 }
