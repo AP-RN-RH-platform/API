@@ -5,7 +5,6 @@ namespace App\Tests\Behat\Context\Traits;
 trait AuthTrait
 {
 
-    protected $token;
 
     /**
      * @Given /^I authenticate with user "([^"]*)" and password "([^"]*)"$/
@@ -21,10 +20,9 @@ trait AuthTrait
             ]
         );
         $response = json_decode($response->getContent(false), true);
-        $token = $response["token"];
-        $this->token = $token;
-        if ($this->token) {
-            $this->iSetTheHeaderToBe("Authorization", "Bearer {$this->token}");
+        if (isset($response["token"])) {
+            $token = $response["token"];
+            $this->iSetTheHeaderToBe("Authorization", "Bearer {$token}");
         }
     }
 }

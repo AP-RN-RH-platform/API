@@ -67,13 +67,7 @@ trait RequestTrait
         $method = strtoupper($httpMethod);
 
 
-
-        $options = [];
-        if($this->token) {
-            $this->iSetTheHeaderToBe("Authorization", "Bearer {$this->token}");
-//            $options["auth_bearer"] = "{$this->token}";
-        }
-
+        
 
         $this->lastRequest = new Request(
             $httpMethod,
