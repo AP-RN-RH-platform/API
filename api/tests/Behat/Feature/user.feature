@@ -38,11 +38,41 @@ Feature: _User_
     Then print last response
 
 
-#  Scenario: GET USER BY ID
-#    Given I authenticate with user "recruiter@gmail.com" and password "toto"
-#    Given I request "GET /users/"
-#    When the response status code should be 200
-#    Then print last response
+  Scenario: GET USER BY ID
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+    Given I request "GET /users/{{recruiter_1.id}}"
+    When the response status code should be 200
+    Then print last response
+
+
+  Scenario: DELETE USER BY ID
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+    Given I request "DELETE /users/{{recruiter_1.id}}"
+    When the response status code should be 204
+    Then print last response
+
+
+  Scenario: PUT USER BY ID
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+    Given I have the payload
+    """
+    {
+       "firstname": "Omar",
+       "lastname": "ABDALLA",
+       "genre": "F",
+       "photo": "string",
+       "address": "string",
+       "city": "string",
+       "email": "string",
+       "roles": [
+          "ROLE_RECRUITER"
+        ],
+       "password": "toto"
+    }
+    """
+    Given I request "PUT /users/{{recruiter_1.id}}"
+    When the response status code should be 200
+    Then print last response
 
   Scenario: LOGIN 200
     Given I have the payload
