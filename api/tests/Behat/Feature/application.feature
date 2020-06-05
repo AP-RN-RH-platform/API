@@ -69,3 +69,25 @@ Feature: _Application_
     Given I request "DELETE /applications/{{application_1.id}}"
     Then the response status code should be 204
     Then print last response
+
+  Scenario: create application with Recruiter
+    Given I authenticate with user "recruiter@gmail.com" and password "toto"
+    Given I have the payload
+      """
+      {
+          "firstname":"test",
+          "lastname":"test",
+          "email": "test@test.fr",
+          "sex": true,
+          "age": 18,
+          "address": "Rue du jardin",
+          "city": "Rue du jardin",
+          "motives": "Rue du jardin",
+          "expectedSalary": 45000,
+          "status":"Waiting",
+          "offer": "/offers/{{ offer_1.id }}"
+      }
+      """
+    When I request "POST /applications"
+    Then the response status code should be 403
+

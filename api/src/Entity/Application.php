@@ -20,9 +20,9 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
  *     },
  *     itemOperations={
  *         "get",
- *         "put",
+ *         "put"={"security"="is_granted('ROLE_RECRUITER') or (is_granted('ROLE_APPLICANT') )"},
  *         "patch"={"security"="is_granted('ROLE_RECRUITER') or (is_granted('ROLE_APPLICANT') and object.createdBy == user)"},
- *         "delete",
+ *         "delete"={"security"="is_granted('ROLE_RECRUITER') or (is_granted('ROLE_APPLICANT') )"},
  *     },
  *     subresourceOperations={
  *          "api_application_offer_get_subresource"={
