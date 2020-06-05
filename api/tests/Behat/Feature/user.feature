@@ -74,6 +74,27 @@ Feature: _User_
     When the response status code should be 200
     Then print last response
 
+  Scenario: PUT USER BY ID INVALID 403
+    Given I authenticate with user "applicant@gmail.com" and password "toto"
+    Given I have the payload
+    """
+    {
+       "firstname": "Omar",
+       "lastname": "ABDALLA",
+       "genre": "F",
+       "photo": "string",
+       "address": "string",
+       "city": "string",
+       "email": "string",
+       "roles": [
+          "ROLE_RECRUITER"
+        ],
+       "password": "toto"
+    }
+    """
+    Given I request "PUT /users/{{recruiter_1.id}}"
+    When the response status code should be 403
+
   Scenario: LOGIN 200
     Given I have the payload
     """
